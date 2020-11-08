@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<title>Harry</title>
+<body>
+  <body>
+    <center>
+      <h1>
+        <img
+          src="https://cdn.technologyadvice.com/wp-content/uploads/2018/02/friendly-chatbot-700x408.jpg"
+          alt="Harry"
+          style="width:60px;height:40px;"
+        /> Your Personal ChatBot
+      </h1>
+    </center>
+<div class="box"></div>
+
+<div id="ci" >
+
+
+    <div class="boxed">
+      <div>
+
+
+        <div id="chatbox">
+
+          <p class="botText">
+            <span>Hi! I'm Harry your personal ChatBot</span>
+          </p>
+        </div>
+
+        </div>
+
+      </div>
+      <div id="userInput">
+
+        <input id="textInput" type="text" name="msg" placeholder="Message" />
+        <div id="b1">
+          <button
+          onclick="myFunction()">
+          <img id ='si' src="https://image.flaticon.com/icons/png/512/60/60525.png">
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  </body>
+</body>
+</html>
+<head>
+  <link rel="icon" href="data:;base64,=">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+      img{
+        height: 8vmin;
+
+        margin-left:;
+        margin-right: auto;
+        pointer-events: none;
+        align:left;
+      }
+      #ti{
+        height: 8vmin;
+
+        margin-left:;
+        margin-right: auto;
+        pointer-events: none;
+        align:center;
+        padding-top: 10px;
+        padding-left: 220px;
+      }
+      #ci{
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+      }
+
+      body {
+        font-family: monospace;
+        background-color: black;
+
+      }
+      div{
+        background-color: white;
+
+
+      }
+      button
+      {
+        height: 35px;
+        width: 50px;
+        background-color: white;
+        border: 0px;
+        padding-right: 15px;
+      }
+
+      #si
+      {
+        height: 30px;
+        width: 30px;
+
+      }
+      #b1
+      {
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 2px;
+      }
+      h1 {
+        background-color: #4169e1;
+        color: white;
+        font-family: "Times New Roman", Times, serif;
+        display: inline-block;
+        font-size: 3em;
+        margin: 0;
+        padding: 14px;
+      }
+      h3 {
+        color: black;
+        font-size: 20px;
+        margin-top: 3px;
+        text-align: center;
+      }
+      #chatbox {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        height: 100%;
+        margin-top: 50px;
+
+      }
+      #userInput {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        height: 50%;
+        margin-top: 10px;
+        padding-bottom: 20px;
+      }
+      #textInput {
+        width: 90%;
+        border: none;
+        border-bottom: 3px solid black;
+        font-size: 17px;
+        position: relative;
+        bottom: 0;
+        padding-bottom: : 5px;
+      }
+      .userText {
+        color: white;
+        font-size: 17px;
+        text-align: right;
+        line-height: 30px;
+
+      }
+      .userText span {
+        background-color: #808080;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      .botText {
+        color: white;
+        font-family: monospace;
+        font-size: 17px;
+        text-align: left;
+        line-height: 30px;
+      }
+      .botText span {
+        background-color: #4169e1;
+        padding: 10px;
+        border-radius: 2px;
+        overflow: auto;
+      }
+      #tidbit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 300px;
+      }
+      .boxed {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        height: 400px;
+
+        overflow: auto;
+
+      }
+      .box {
+        border: 2px solid black;
+
+
+      }
+    </style>
+</head>
+
+
+
+<script>
+
+function getBotResponse() {
+  var rawText = $("#textInput").val();
+  var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+  $("#textInput").val("");
+  $("#chatbox").append(userHtml);
+  document
+    .getElementById("userInput")
+    .scrollIntoView({ block: "start", behavior: "smooth" });
+  $.get("/get", { msg: rawText }).done(function(data) {
+    var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+    $("#chatbox").append(botHtml);
+    document
+      .getElementById("userInput")
+      .scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+}
+$("#textInput").keypress(function(e) {
+  if (e.which == 13) {
+    getBotResponse();
+  }
+});
+
+function myFunction() {
+  getBotResponse();
+}
+
+
+</script>

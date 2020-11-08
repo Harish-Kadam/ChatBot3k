@@ -1,0 +1,290 @@
+  <!DOCTYPE html>
+  <html>
+  <title>Harry</title>
+  <body>
+    <body>
+      <center>
+        <h1>
+          <img
+            src="https://cdn.technologyadvice.com/wp-content/uploads/2018/02/friendly-chatbot-700x408.jpg"
+            alt="Harry"
+            style="width:60px;height:40px;"
+          /> Your Personal ChatBot
+        </h1>
+      </center>
+  <div class="box"></div>
+
+  <div id="ci" >
+    <audio id="audio" controls src="/music/bar.wav?nocache?"+new Date().getTime(); type="audio/x-wav;codec=pcm">
+
+    </audio>
+
+    <img id="ti"
+      src="https://cdn.technologyadvice.com/wp-content/uploads/2018/02/friendly-chatbot-700x408.jpg"
+      alt="Harry"
+      style="width:60px;height:60   px;"
+      align="center"
+
+    />
+
+      <div class="boxed">
+        <div>
+
+
+          <div id="chatbox">
+
+            <p class="botText">
+              <span>Hi! I'm Harry your personal ChatBot</span>
+            </p>
+          </div>
+
+          </div>
+
+        </div>
+        <div id="userInput">
+          <input id="textInput" type="text" name="msg" placeholder="Message" />
+
+        </div>
+      </div>
+    </body>
+  </body>
+  </html>
+  <head>
+    <link rel="icon" href="data:;base64,=">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <style>
+        img{
+          height: 8vmin;
+
+          margin-left:;
+          margin-right: auto;
+          pointer-events: none;
+          align:left;
+        }
+        #ti{
+          height: 8vmin;
+
+          margin-left:;
+          margin-right: auto;
+          pointer-events: none;
+          align:center;
+          padding-top: 10px;
+          padding-left: 220px;
+        }
+        #ci{
+          margin-left: auto;
+          margin-right: auto;
+          width: 80%;
+        }
+
+        body {
+          font-family: monospace;
+          background-color: black;
+
+        }
+        div{
+          background-color: white;
+
+
+        }
+        h1 {
+          background-color: #4169e1;
+          color: white;
+          font-family: "Times New Roman", Times, serif;
+          display: inline-block;
+          font-size: 3em;
+          margin: 0;
+          padding: 14px;
+        }
+        h3 {
+          color: black;
+          font-size: 20px;
+          margin-top: 3px;
+          text-align: center;
+        }
+        #chatbox {
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%;
+          height: 100%;
+          margin-top: 50px;
+
+        }
+        #userInput {
+          margin-left: auto;
+          margin-right: auto;
+          width: 42%;
+          height: 50%;
+          margin-top: 10px;
+          padding-bottom: 20px;
+        }
+        #textInput {
+          width: 90%;
+          border: none;
+          border-bottom: 3px solid black;
+          font-size: 17px;
+          position: relative;
+          bottom: 0;
+          padding-bottom: : 5px;
+        }
+        .userText {
+          color: white;
+          font-size: 17px;
+          text-align: right;
+          line-height: 30px;
+
+        }
+        .userText span {
+          background-color: #808080;
+          padding: 10px;
+          border-radius: 2px;
+        }
+        .botText {
+          color: white;
+          font-family: monospace;
+          font-size: 17px;
+          text-align: left;
+          line-height: 30px;
+        }
+        .botText span {
+          background-color: #4169e1;
+          padding: 10px;
+          border-radius: 2px;
+          overflow: auto;
+        }
+        #tidbit {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 300px;
+        }
+        .boxed {
+          margin-left: auto;
+          margin-right: auto;
+          width: 80%;
+          height: 400px;
+
+          overflow: auto;
+
+        }
+        .box {
+          border: 2px solid black;
+
+
+        }
+      </style>
+  </head>
+
+<script>
+
+  document.getElementById('audio').load();
+  function boxed()
+  {
+    document.getElementById("boxed").scrollIntoView();
+  }
+</script>
+
+<script type="text/javascript">
+    document.getElementById('audio').addEventListener("ended",function(e) {
+        this.src = "/music/bar.wav?nocache="+new Date().getTime();
+
+          if (e.keyCode == 13) {
+
+            document.getElementById('audio').load();
+
+            document.getElementById('audio').play();
+          }
+          else {
+            document.getElementById('audio').pause();
+          }
+
+    });
+
+</script>
+
+
+  <script>
+
+  document.getElementById('audio').load();
+
+          function getBotResponse() {
+
+            var x = document.getElementById("audio");
+            var rawText = $("#textInput").val();
+            var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+            $("#textInput").val("");
+            $("#chatbox").append(userHtml);
+
+
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+
+            document.getElementById('audio').play();
+
+
+
+
+
+
+            $.get("/get", { msg: rawText }).done(function(data) {
+
+              var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+              $("#chatbox").append(botHtml);
+
+
+              document
+                .getElementById("userInput")
+                .scrollIntoView({ block: "start", behavior: "smooth" });
+
+              document.getElementById('audio').load();
+
+              document.getElementById('audio').pause();
+
+
+
+            });
+
+          }
+
+          $("#textInput").keypress(function(e) {
+            if (e.which == 13) {
+
+              document.getElementById('audio').load();
+
+
+
+
+
+              getBotResponse();
+
+
+              document.getElementById('audio').load();
+
+
+
+
+            }
+
+          });
+
+
+
+
+          var x = document.getElementById("audio");
+          var y=document.createElement("source");
+
+          function playAudio() {
+              y.src="file:///home/harish/static/bar.wav";
+              y.type="audio/x-wav;codec=pcm";
+              x.appendChild(y);
+              x.play();
+          }
+
+          function pauseAudio() {
+              x.pause();
+          }
+
+
+  </script>
